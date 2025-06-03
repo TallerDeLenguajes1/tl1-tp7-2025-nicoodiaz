@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace EspacioEmpleado
 {
     //Declaracion de la variable enum cargos
@@ -14,7 +16,7 @@ namespace EspacioEmpleado
         private string nombre;
         private string apellido;
         private DateTime fechaDeNacimiento;
-        private char estadoCivil;
+        private char estadoCivil; // 'c'= casado , 's'= soltero
         private DateTime fechaIngreso;
         private double sueldoBasico;
         private Cargos cargo;
@@ -54,6 +56,31 @@ namespace EspacioEmpleado
                 return aniosRestantes;
             }
             return 0;
+        }
+
+        public double CalcularSalario(double sueldoBsico, int aniosAntiguedad)
+        {
+            double adicional = 0;
+            if (aniosAntiguedad < 20 && aniosAntiguedad > 0)
+            {   //Por cada año, es 1%
+                adicional += sueldoBsico * aniosAntiguedad / 100; //Calculo el adicional respecto de si tiene menos de 20 años de antiguedad
+            }
+            else if (aniosAntiguedad >= 20)
+            {
+                adicional += sueldoBsico * 0.25;//Dsp de los 20 años, ya son un 25% fijo
+            }
+            //Dependiendo el cargo, aumentar o no el adicional
+            if (Cargo == Cargos.Ingeniero || Cargo == Cargos.Especialista)
+            {
+                adicional += adicional * 0.5;
+            }
+            //Dependiendo del estado civil
+            if (char.ToLower(EstadoCivil) == 'c') //Convierto a minuscula lo ingresado, para evitar errores
+            {
+                adicional += 150000;
+            }
+            double salario = sueldoBsico + adicional; //Le sumo al basico el adicional calculado
+            return salario; //Devuelvo el sueldo a cobrar
         }
     }
 }
