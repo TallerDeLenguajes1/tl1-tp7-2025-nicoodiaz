@@ -11,7 +11,7 @@ namespace EspacioEmpleado
         Especialista,
         Investigador
     }
-    class Empleado
+    public class Empleado
     {
         private string nombre;
         private string apellido;
@@ -20,6 +20,18 @@ namespace EspacioEmpleado
         private DateTime fechaIngreso;
         private double sueldoBasico;
         private Cargos cargo;
+
+        //Constructor para poder cargar los datos de entrada como argumento del objeto
+        public Empleado(string nombre, string apellido, DateTime fechaDeNacimiento, char estadoCivil, DateTime fechaIngreso, double sueldoBasico, Cargos cargo)
+        {
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.fechaDeNacimiento = fechaDeNacimiento;
+            this.estadoCivil = estadoCivil;
+            this.fechaIngreso = fechaIngreso;
+            this.sueldoBasico = sueldoBasico;
+            this.cargo = cargo;
+        }
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }
